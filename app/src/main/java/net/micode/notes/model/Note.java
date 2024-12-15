@@ -31,15 +31,7 @@ import net.micode.notes.data.Notes.DataColumns;
 import net.micode.notes.data.Notes.NoteColumns;
 import net.micode.notes.data.Notes.TextNote;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
-import android.util.Base64;
-
-import javax.crypto.Cipher;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.SecretKeySpec;
 
 
 public class Note {
@@ -156,55 +148,6 @@ public class Note {
             mCallDataId = 0;
         }
 
-        //加解密方法
-        private SecretKeySpec generateAesKey(String password, byte[] salt, int keyLength) {
-            //处理秘钥
-            try {
-                PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 10000, keyLength * 8);
-                SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-                byte[] keyBytes = factory.generateSecret(spec).getEncoded();
-                return new SecretKeySpec(keyBytes, "AES");
-            } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-        private String encrypt(String plainText, String key){
-            // 使用 AES 或其他加密算法对 plainText 进行加密
-            // 返回加密后的密文
-            try {
-                byte[] salt = key.getBytes(); // key作为盐值
-                SecretKeySpec secretKey = generateAesKey(key, salt, 16); // 16 字节（128 位）
-
-                Cipher cipher = Cipher.getInstance("AES");
-                cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-
-                byte[] encryptedBytes = cipher.doFinal(plainText.getBytes());
-                return Base64.encodeToString(encryptedBytes, Base64.NO_WRAP);
-            } catch (Exception e) {
-                e.printStackTrace(); // 打印异常信息
-                return "filed to encrypt"; // 返回空字符串或默认值
-            }
-        }
-
-        private String decrypt(String cipherText, String key){
-            // 使用 AES 或其他加密算法对 cipherText 进行解密
-            // 返回解密后的明文
-            try {
-                byte[] salt = key.getBytes(); // key作为盐值
-                SecretKeySpec secretKey = generateAesKey(key, salt, 16); // 16 字节（128 位）
-
-                Cipher cipher = Cipher.getInstance("AES");
-                cipher.init(Cipher.DECRYPT_MODE, secretKey);
-
-                byte[] decodedBytes = Base64.decode(cipherText, Base64.NO_WRAP);
-                return new String(cipher.doFinal(decodedBytes));
-            } catch (Exception e) {
-                e.printStackTrace(); // 打印异常信息
-                return "filed to decrypt"; // 返回空字符串或默认值
-            }
-        }
-
         boolean isLocalModified() {
             return mTextDataValues.size() > 0 || mCallDataValues.size() > 0;
         }
@@ -230,7 +173,7 @@ public class Note {
         }
 
         void setTextData(String key, String value) {
-            String encryptedValue = encrypt(value, key); // 加密内容
+            String encryptedValue = Code.encrypt(value, key); // 加密内容
             mTextDataValues.put(key, encryptedValue); //存储加密内容
             mNoteDiffValues.put(NoteColumns.LOCAL_MODIFIED, 1);
             mNoteDiffValues.put(NoteColumns.MODIFIED_DATE, System.currentTimeMillis());
