@@ -32,6 +32,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -192,7 +193,7 @@ public class NotesListActivity extends Activity implements OnClickListener, OnIt
 
             WorkingNote note = WorkingNote.createEmptyNote(this, Notes.ID_ROOT_FOLDER,
                     AppWidgetManager.INVALID_APPWIDGET_ID, Notes.TYPE_WIDGET_INVALIDE,
-                    ResourceParser.RED);
+                    ResourceParser.RED,"");
             note.setWorkingText(sb.toString());
             if (note.saveNote()) {
                 sp.edit().putBoolean(PREFERENCE_ADD_INTRODUCTION, true).commit();
@@ -463,10 +464,16 @@ public class NotesListActivity extends Activity implements OnClickListener, OnIt
     }
 
     private void createNewNote() {
-        Intent intent = new Intent(this, NoteEditActivity.class);
-        intent.setAction(Intent.ACTION_INSERT_OR_EDIT);
-        intent.putExtra(Notes.INTENT_EXTRA_FOLDER_ID, mCurrentFolderId);
-        this.startActivityForResult(intent, REQUEST_CODE_NEW_NODE);
+        PasswordDialog.show(this, new PasswordDialog.PasswordDialogListener() {
+            @Override
+            public void onPasswordEntered(String password) {
+                Intent intent = new Intent(NotesListActivity.this, NoteEditActivity.class);
+                intent.setAction(Intent.ACTION_INSERT_OR_EDIT);
+                intent.putExtra(Notes.INTENT_EXTRA_FOLDER_ID, mCurrentFolderId);
+                intent.putExtra("EXTRA_PASSWORD", password);
+                startActivityForResult(intent, REQUEST_CODE_NEW_NODE);
+            }
+        });
     }
 
     private void batchDelete() {
@@ -534,10 +541,16 @@ public class NotesListActivity extends Activity implements OnClickListener, OnIt
     }
 
     private void openNode(NoteItemData data) {
-        Intent intent = new Intent(this, NoteEditActivity.class);
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.putExtra(Intent.EXTRA_UID, data.getId());
-        this.startActivityForResult(intent, REQUEST_CODE_OPEN_NODE);
+        PasswordDialog.show(this, new PasswordDialog.PasswordDialogListener() {
+            @Override
+            public void onPasswordEntered(String password) {
+                Intent intent = new Intent(NotesListActivity.this, NoteEditActivity.class);
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.putExtra(Intent.EXTRA_UID, data.getId());
+                intent.putExtra("EXTRA_PASSWORD", password);
+                startActivityForResult(intent, REQUEST_CODE_OPEN_NODE);
+            }
+        });
     }
 
     private void openFolder(NoteItemData data) {

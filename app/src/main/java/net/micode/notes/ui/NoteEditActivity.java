@@ -150,6 +150,8 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     private Pattern mPattern;
 
     @Override
+    //对主界面ui进行操作之后会到达这里
+    //创建新便签，打开旧便签都对调用
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.note_edit);
@@ -179,12 +181,17 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         }
     }
 
+    //关键位置
+    //onCreate的后续，根据intent传入的ACTION做出不同操作
+    //查看现有的便签使用ACTION_VIEW
+    //新便签会用ACTION_INSERT_OR_EDIT
     private boolean initActivityState(Intent intent) {
         /**
          * If the user specified the {@link Intent#ACTION_VIEW} but not provided with id,
          * then jump to the NotesListActivity
          */
         mWorkingNote = null;
+        String password = intent.getStringExtra("EXTRA_PASSWORD");
         if (TextUtils.equals(Intent.ACTION_VIEW, intent.getAction())) {
             long noteId = intent.getLongExtra(Intent.EXTRA_UID, 0);
             mUserQuery = "";
@@ -204,7 +211,8 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                 finish();
                 return false;
             } else {
-                mWorkingNote = WorkingNote.load(this, noteId);
+                //load传入密码
+                mWorkingNote = WorkingNote.load(this, noteId,password);
                 if (mWorkingNote == null) {
                     Log.e(TAG, "load note failed with note id" + noteId);
                     finish();
@@ -234,7 +242,8 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                 long noteId = 0;
                 if ((noteId = DataUtils.getNoteIdByPhoneNumberAndCallDate(getContentResolver(),
                         phoneNumber, callDate)) > 0) {
-                    mWorkingNote = WorkingNote.load(this, noteId);
+                    //load传入密码
+                    mWorkingNote = WorkingNote.load(this, noteId,password);
                     if (mWorkingNote == null) {
                         Log.e(TAG, "load call note failed with note id" + noteId);
                         finish();
@@ -242,12 +251,13 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                     }
                 } else {
                     mWorkingNote = WorkingNote.createEmptyNote(this, folderId, widgetId,
-                            widgetType, bgResId);
+                            widgetType, bgResId, password);
                     mWorkingNote.convertToCallNote(phoneNumber, callDate);
                 }
             } else {
+                //新建便签传入密码的位置
                 mWorkingNote = WorkingNote.createEmptyNote(this, folderId, widgetId, widgetType,
-                        bgResId);
+                        bgResId, password);
             }
 
             getWindow().setSoftInputMode(

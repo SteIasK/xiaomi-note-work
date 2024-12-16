@@ -101,6 +101,9 @@ public class WorkingNote {
 
     private static final int NOTE_MODIFIED_DATE_COLUMN = 5;
 
+    //传入的密码参数
+    public static String mPassword=new String();
+
     // New note construct
     private WorkingNote(Context context, long folderId) {
         mContext = context;
@@ -158,8 +161,8 @@ public class WorkingNote {
                     String type = cursor.getString(DATA_MIME_TYPE_COLUMN);
                     if (DataConstants.NOTE.equals(type)) {
                         mContent = cursor.getString(DATA_CONTENT_COLUMN);
-                        //默认直接解密
-                        mContent = Code.decrypt(mContent,"default");
+                        //使用传入的参数进行解密
+                        mContent = Code.decrypt(mContent,mPassword);
                         mMode = cursor.getInt(DATA_MODE_COLUMN);
                         mNote.setTextDataId(cursor.getLong(DATA_ID_COLUMN));
                     } else if (DataConstants.CALL_NOTE.equals(type)) {
@@ -177,15 +180,17 @@ public class WorkingNote {
     }
 
     public static WorkingNote createEmptyNote(Context context, long folderId, int widgetId,
-            int widgetType, int defaultBgColorId) {
+            int widgetType, int defaultBgColorId, String password) {
         WorkingNote note = new WorkingNote(context, folderId);
         note.setBgColorId(defaultBgColorId);
         note.setWidgetId(widgetId);
         note.setWidgetType(widgetType);
+        mPassword = password;
         return note;
     }
 
-    public static WorkingNote load(Context context, long id) {
+    public static WorkingNote load(Context context, long id,String password) {
+        mPassword = password;
         return new WorkingNote(context, id, 0);
     }
 
@@ -265,7 +270,7 @@ public class WorkingNote {
                 mNoteSettingStatusListener.onCheckListModeChanged(mMode, mode);
             }
             mMode = mode;
-            mNote.setTextData(TextNote.MODE, String.valueOf(mMode));
+            mNote.setTextData(TextNote.MODE, String.valueOf(mMode), mPassword);
         }
     }
 
@@ -286,7 +291,7 @@ public class WorkingNote {
     public void setWorkingText(String text) {
         if (!TextUtils.equals(mContent, text)) {
             mContent = text;
-            mNote.setTextData(DataColumns.CONTENT, mContent);
+            mNote.setTextData(DataColumns.CONTENT, mContent, mPassword);
         }
     }
 

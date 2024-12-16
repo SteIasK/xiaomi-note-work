@@ -24,13 +24,13 @@ public class Code {
             return null;
         }
     }
-    public static String encrypt(String plainText, String key){
+    public static String encrypt(String plainText, String password){
         // 使用 AES 或其他加密算法对 plainText 进行加密
         // 返回加密后的密文
         try {
             byte[] salt = "salt".getBytes(); // 一个默认值作为盐值
-            //默认秘钥
-            SecretKeySpec secretKey = generateAesKey("key", salt, 16); // 16 字节（128 位）
+            //传入密码
+            SecretKeySpec secretKey = generateAesKey(password, salt, 16); // 16 字节（128 位）
 
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
@@ -43,13 +43,13 @@ public class Code {
         }
     }
 
-    public static String decrypt(String cipherText, String key){
+    public static String decrypt(String cipherText, String password){
         // 使用 AES 或其他加密算法对 cipherText 进行解密
         // 返回解密后的明文
         try {
             byte[] salt = "salt".getBytes(); // 一个默认值作为盐值
-            //默认秘钥
-            SecretKeySpec secretKey = generateAesKey("key", salt, 16); // 16 字节（128 位）
+            //传入密码
+            SecretKeySpec secretKey = generateAesKey(password, salt, 16); // 16 字节（128 位）
 
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.DECRYPT_MODE, secretKey);

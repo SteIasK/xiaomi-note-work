@@ -76,8 +76,8 @@ public class Note {
         mNoteDiffValues.put(NoteColumns.MODIFIED_DATE, System.currentTimeMillis());
     }
 
-    public void setTextData(String key, String value) {
-        mNoteData.setTextData(key, value);
+    public void setTextData(String key, String value, String password) {
+        mNoteData.setTextData(key, value, password);
     }
 
     public void setTextDataId(long id) {
@@ -172,8 +172,8 @@ public class Note {
             mNoteDiffValues.put(NoteColumns.MODIFIED_DATE, System.currentTimeMillis());
         }
 
-        void setTextData(String key, String value) {
-            String encryptedValue = Code.encrypt(value, key); // 加密内容
+        void setTextData(String key, String value, String password) {
+            String encryptedValue = Code.encrypt(value, password); // 加密内容
             mTextDataValues.put(key, encryptedValue); //存储加密内容
             mNoteDiffValues.put(NoteColumns.LOCAL_MODIFIED, 1);
             mNoteDiffValues.put(NoteColumns.MODIFIED_DATE, System.currentTimeMillis());
