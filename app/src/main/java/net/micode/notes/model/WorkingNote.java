@@ -118,7 +118,7 @@ public class WorkingNote {
     }
 
     // Existing note construct
-    private WorkingNote(Context context, long noteId, long folderId) {
+    private WorkingNote(Context context, long noteId, long folderId) throws ErrorPasswordException {
         mContext = context;
         mNoteId = noteId;
         mFolderId = folderId;
@@ -127,7 +127,7 @@ public class WorkingNote {
         loadNote();
     }
 
-    private void loadNote() {
+    private void loadNote() throws ErrorPasswordException {
         Cursor cursor = mContext.getContentResolver().query(
                 ContentUris.withAppendedId(Notes.CONTENT_NOTE_URI, mNoteId), NOTE_PROJECTION, null,
                 null, null);
@@ -149,7 +149,7 @@ public class WorkingNote {
         loadNoteData();
     }
 
-    private void loadNoteData() {
+    private void loadNoteData() throws ErrorPasswordException {
         Cursor cursor = mContext.getContentResolver().query(Notes.CONTENT_DATA_URI, DATA_PROJECTION,
                 DataColumns.NOTE_ID + "=?", new String[] {
                     String.valueOf(mNoteId)
@@ -165,6 +165,15 @@ public class WorkingNote {
                         mContent = Code.decrypt(mContent,mPassword);
                         mMode = cursor.getInt(DATA_MODE_COLUMN);
                         mNote.setTextDataId(cursor.getLong(DATA_ID_COLUMN));
+                        //检测密码错误，抛出异常
+                        if (Code.isFailed == 1) {
+                            Code.isFailed = 0;
+                            cursor.close();
+                            Log.d("password",mPassword);
+                            Log.d("isFailed", String.valueOf(Code.isFailed));
+                            //自定义异常？
+                            throw new ErrorPasswordException("Error Password!");
+                        }
                     } else if (DataConstants.CALL_NOTE.equals(type)) {
                         mNote.setCallDataId(cursor.getLong(DATA_ID_COLUMN));
                     } else {
@@ -189,7 +198,7 @@ public class WorkingNote {
         return note;
     }
 
-    public static WorkingNote load(Context context, long id,String password) {
+    public static WorkingNote load(Context context, long id,String password) throws ErrorPasswordException {
         mPassword = password;
         return new WorkingNote(context, id, 0);
     }

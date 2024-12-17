@@ -11,9 +11,11 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class Code {
+    //用这个来指示密码错误 对...对吗？
+    public static int isFailed = 0;
     //加解密方法
     public static SecretKeySpec generateAesKey(String password, byte[] salt, int keyLength) {
-        //处理秘钥
+        //处理秘钥，把任意输入转换为AES可用秘钥
         try {
             PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 10000, keyLength * 8);
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
@@ -39,7 +41,7 @@ public class Code {
             return Base64.encodeToString(encryptedBytes, Base64.NO_WRAP);
         } catch (Exception e) {
             e.printStackTrace(); // 打印异常信息
-            return "filed to encrypt"; // 返回失败
+            return plainText; // 返回原文
         }
     }
 
@@ -58,6 +60,8 @@ public class Code {
             return new String(cipher.doFinal(decodedBytes));
         } catch (Exception e) {
             e.printStackTrace(); // 打印异常信息
+            //设置为密码错误状态
+            isFailed = 1;
             return "filed to decrypt"; // 返回失败
         }
     }
