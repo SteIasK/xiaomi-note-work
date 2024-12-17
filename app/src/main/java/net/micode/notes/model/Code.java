@@ -41,7 +41,7 @@ public class Code {
             return Base64.encodeToString(encryptedBytes, Base64.NO_WRAP);
         } catch (Exception e) {
             e.printStackTrace(); // 打印异常信息
-            return plainText; // 返回原文
+            return "failed to encrypt"; // 返回失败
         }
     }
 
@@ -49,6 +49,7 @@ public class Code {
         // 使用 AES 或其他加密算法对 cipherText 进行解密
         // 返回解密后的明文
         try {
+            isFailed = 0;
             byte[] salt = "salt".getBytes(); // 一个默认值作为盐值
             //传入密码
             SecretKeySpec secretKey = generateAesKey(password, salt, 16); // 16 字节（128 位）
@@ -62,7 +63,7 @@ public class Code {
             e.printStackTrace(); // 打印异常信息
             //设置为密码错误状态
             isFailed = 1;
-            return "filed to decrypt"; // 返回失败
+            return cipherText + "\npassword error!\nYour changes will not be saved."; // 返回失败
         }
     }
 }

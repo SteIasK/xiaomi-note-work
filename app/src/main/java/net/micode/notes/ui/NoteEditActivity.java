@@ -187,88 +187,79 @@ public class NoteEditActivity extends Activity implements OnClickListener,
     //查看现有的便签使用ACTION_VIEW
     //新便签会用ACTION_INSERT_OR_EDIT
     private boolean initActivityState(Intent intent) {
-        try {
-            // 现有的初始化逻辑
-            mWorkingNote = null;
-            String password = intent.getStringExtra("EXTRA_PASSWORD");
-            if (TextUtils.equals(Intent.ACTION_VIEW, intent.getAction())) {
-                long noteId = intent.getLongExtra(Intent.EXTRA_UID, 0);
-                mUserQuery = "";
+        // 现有的初始化逻辑
+        mWorkingNote = null;
+        String password = intent.getStringExtra("EXTRA_PASSWORD");
+        if (TextUtils.equals(Intent.ACTION_VIEW, intent.getAction())) {
+            long noteId = intent.getLongExtra(Intent.EXTRA_UID, 0);
+            mUserQuery = "";
 
-                if (intent.hasExtra(SearchManager.EXTRA_DATA_KEY)) {
-                    noteId = Long.parseLong(intent.getStringExtra(SearchManager.EXTRA_DATA_KEY));
-                    mUserQuery = intent.getStringExtra(SearchManager.USER_QUERY);
-                }
+            if (intent.hasExtra(SearchManager.EXTRA_DATA_KEY)) {
+                noteId = Long.parseLong(intent.getStringExtra(SearchManager.EXTRA_DATA_KEY));
+                mUserQuery = intent.getStringExtra(SearchManager.USER_QUERY);
+            }
 
-                if (!DataUtils.visibleInNoteDatabase(getContentResolver(), noteId, Notes.TYPE_NOTE)) {
-                    Intent jump = new Intent(this, NotesListActivity.class);
-                    startActivity(jump);
-                    showToast(R.string.error_note_not_exist);
+            if (!DataUtils.visibleInNoteDatabase(getContentResolver(), noteId, Notes.TYPE_NOTE)) {
+                Intent jump = new Intent(this, NotesListActivity.class);
+                startActivity(jump);
+                showToast(R.string.error_note_not_exist);
+                finish();
+                return false;
+            } else {
+                mWorkingNote = WorkingNote.load(this, noteId, password);
+                if (mWorkingNote == null) {
+                    Log.e(TAG, "load note failed with note id" + noteId);
                     finish();
                     return false;
-                } else {
+                }
+            }
+            getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+                            | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        } else if (TextUtils.equals(Intent.ACTION_INSERT_OR_EDIT, intent.getAction())) {
+            long folderId = intent.getLongExtra(Notes.INTENT_EXTRA_FOLDER_ID, 0);
+            int widgetId = intent.getIntExtra(Notes.INTENT_EXTRA_WIDGET_ID,
+                    AppWidgetManager.INVALID_APPWIDGET_ID);
+            int widgetType = intent.getIntExtra(Notes.INTENT_EXTRA_WIDGET_TYPE,
+                    Notes.TYPE_WIDGET_INVALIDE);
+            int bgResId = intent.getIntExtra(Notes.INTENT_EXTRA_BACKGROUND_ID,
+                    ResourceParser.getDefaultBgId(this));
+
+            String phoneNumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
+            long callDate = intent.getLongExtra(Notes.INTENT_EXTRA_CALL_DATE, 0);
+            if (callDate != 0 && phoneNumber != null) {
+                if (TextUtils.isEmpty(phoneNumber)) {
+                    Log.w(TAG, "The call record number is null");
+                }
+                long noteId = 0;
+                if ((noteId = DataUtils.getNoteIdByPhoneNumberAndCallDate(getContentResolver(),
+                        phoneNumber, callDate)) > 0) {
                     mWorkingNote = WorkingNote.load(this, noteId, password);
                     if (mWorkingNote == null) {
-                        Log.e(TAG, "load note failed with note id" + noteId);
+                        Log.e(TAG, "load call note failed with note id" + noteId);
                         finish();
                         return false;
                     }
-                }
-                getWindow().setSoftInputMode(
-                        WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
-                                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-            } else if (TextUtils.equals(Intent.ACTION_INSERT_OR_EDIT, intent.getAction())) {
-                long folderId = intent.getLongExtra(Notes.INTENT_EXTRA_FOLDER_ID, 0);
-                int widgetId = intent.getIntExtra(Notes.INTENT_EXTRA_WIDGET_ID,
-                        AppWidgetManager.INVALID_APPWIDGET_ID);
-                int widgetType = intent.getIntExtra(Notes.INTENT_EXTRA_WIDGET_TYPE,
-                        Notes.TYPE_WIDGET_INVALIDE);
-                int bgResId = intent.getIntExtra(Notes.INTENT_EXTRA_BACKGROUND_ID,
-                        ResourceParser.getDefaultBgId(this));
-
-                String phoneNumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);
-                long callDate = intent.getLongExtra(Notes.INTENT_EXTRA_CALL_DATE, 0);
-                if (callDate != 0 && phoneNumber != null) {
-                    if (TextUtils.isEmpty(phoneNumber)) {
-                        Log.w(TAG, "The call record number is null");
-                    }
-                    long noteId = 0;
-                    if ((noteId = DataUtils.getNoteIdByPhoneNumberAndCallDate(getContentResolver(),
-                            phoneNumber, callDate)) > 0) {
-                        mWorkingNote = WorkingNote.load(this, noteId, password);
-                        if (mWorkingNote == null) {
-                            Log.e(TAG, "load call note failed with note id" + noteId);
-                            finish();
-                            return false;
-                        }
-                    } else {
-                        mWorkingNote = WorkingNote.createEmptyNote(this, folderId, widgetId,
-                                widgetType, bgResId, password);
-                        mWorkingNote.convertToCallNote(phoneNumber, callDate);
-                    }
                 } else {
-                    mWorkingNote = WorkingNote.createEmptyNote(this, folderId, widgetId, widgetType,
-                            bgResId, password);
+                    mWorkingNote = WorkingNote.createEmptyNote(this, folderId, widgetId,
+                            widgetType, bgResId, password);
+                    mWorkingNote.convertToCallNote(phoneNumber, callDate);
                 }
-
-                getWindow().setSoftInputMode(
-                        WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
-                                | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             } else {
-                Log.e(TAG, "Intent not specified action, should not support");
-                finish();
-                return false;
+                mWorkingNote = WorkingNote.createEmptyNote(this, folderId, widgetId, widgetType,
+                        bgResId, password);
             }
-            mWorkingNote.setOnSettingStatusChangedListener(this);
-            return true;
-            //catch并处理异常
-        } catch (ErrorPasswordException e) {
-            Log.e(TAG, "Error password exception: " + e.getMessage());
-            Intent jump = new Intent(this, NotesListActivity.class);
-            startActivity(jump);
+
+            getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+                            | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        } else {
+            Log.e(TAG, "Intent not specified action, should not support");
             finish();
             return false;
         }
+        mWorkingNote.setOnSettingStatusChangedListener(this);
+        return true;
     }
 
     @Override
