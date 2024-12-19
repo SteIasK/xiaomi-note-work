@@ -41,7 +41,7 @@ public class Code {
             return Base64.encodeToString(encryptedBytes, Base64.NO_WRAP);
         } catch (Exception e) {
             e.printStackTrace(); // 打印异常信息
-            return "failed to encrypt"; // 返回失败
+            return plainText; //留给初始提示信息
         }
     }
 

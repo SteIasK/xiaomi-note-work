@@ -41,7 +41,9 @@ public class WorkingNote {
     private String mContent;
     // Note mode
     private int mMode;
-
+    //标签标题
+    //有用吗？
+    private String mName;
     private long mAlertDate;
 
     private long mModifiedDate;
@@ -102,19 +104,21 @@ public class WorkingNote {
     private static final int NOTE_MODIFIED_DATE_COLUMN = 5;
 
     //传入的密码参数
-    public static String mPassword=new String();
+    public static String mPassword = new String();
 
     // New note construct
-    private WorkingNote(Context context, long folderId) {
+    private WorkingNote(Context context, long folderId, String name) {
         mContext = context;
         mAlertDate = 0;
         mModifiedDate = System.currentTimeMillis();
         mFolderId = folderId;
-        mNote = new Note();
+        //新笔记构造传入name
+        mNote = new Note(name);
         mNoteId = 0;
         mIsDeleted = false;
         mMode = 0;
         mWidgetType = Notes.TYPE_WIDGET_INVALIDE;
+        mName = name;
     }
 
     // Existing note construct
@@ -123,7 +127,8 @@ public class WorkingNote {
         mNoteId = noteId;
         mFolderId = folderId;
         mIsDeleted = false;
-        mNote = new Note();
+        //旧笔记不进行命名
+        mNote = new Note(null);
         loadNote();
     }
 
@@ -181,8 +186,8 @@ public class WorkingNote {
     }
 
     public static WorkingNote createEmptyNote(Context context, long folderId, int widgetId,
-            int widgetType, int defaultBgColorId, String password) {
-        WorkingNote note = new WorkingNote(context, folderId);
+            int widgetType, int defaultBgColorId, String password, String name) {
+        WorkingNote note = new WorkingNote(context, folderId, name);
         note.setBgColorId(defaultBgColorId);
         note.setWidgetId(widgetId);
         note.setWidgetType(widgetType);

@@ -43,9 +43,9 @@
             android:layout_height="0dip"
             android:layout_weight="1"
             android:cacheColorHint="@null"
-            android:listSelector="@android:color/transparent"
             android:divider="@null"
-            android:fadingEdge="@null" />
+            android:fadingEdge="@null"
+            android:listSelector="@android:color/transparent" />
     </LinearLayout>
 
     <Button

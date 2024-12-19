@@ -1,20 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- Copyright (c) 2010-2011, The MiCode Open Source Community (www.micode.net)
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
-
 <FrameLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -39,6 +24,12 @@
                 android:layout_gravity="left|center_vertical"
                 android:layout_marginRight="8dip"
                 android:textAppearance="@style/TextAppearanceSecondaryItem" />
+
+            <Button
+                android:id="@+id/btn_show_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T" />
 
             <ImageView
                 android:id="@+id/iv_alert_icon"
@@ -77,11 +68,11 @@
             <ScrollView
                 android:layout_width="fill_parent"
                 android:layout_height="0dip"
-                android:layout_weight="1"
-                android:scrollbars="none"
-                android:overScrollMode="never"
                 android:layout_gravity="left|top"
-                android:fadingEdgeLength="0dip">
+                android:layout_weight="1"
+                android:fadingEdgeLength="0dip"
+                android:overScrollMode="never"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -91,20 +82,20 @@
                         android:id="@+id/note_edit_view"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="left|top"
-                        android:background="@null"
                         android:autoLink="all"
+                        android:background="@null"
+                        android:gravity="left|top"
+                        android:lineSpacingMultiplier="1.2"
                         android:linksClickable="false"
                         android:minLines="12"
-                        android:textAppearance="@style/TextAppearancePrimaryItem"
-                        android:lineSpacingMultiplier="1.2" />
+                        android:textAppearance="@style/TextAppearancePrimaryItem" />
 
                     <LinearLayout
                         android:id="@+id/note_edit_list"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_marginLeft="-10dip"
+                        android:orientation="vertical"
                         android:visibility="gone" />
                 </LinearLayout>
             </ScrollView>
@@ -397,4 +388,13 @@
                 android:src="@drawable/selected" />
         </FrameLayout>
     </LinearLayout>
+
+    <!-- 添加按钮 -->
+    <Button
+        android:id="@+id/btn_chat_gpt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:text="AI" />
 </FrameLayout>

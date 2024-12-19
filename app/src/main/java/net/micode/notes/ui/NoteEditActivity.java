@@ -28,6 +28,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Spannable;
@@ -43,6 +44,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -55,7 +57,6 @@ import android.widget.Toast;
 import net.micode.notes.R;
 import net.micode.notes.data.Notes;
 import net.micode.notes.data.Notes.TextNote;
-import net.micode.notes.model.ErrorPasswordException;
 import net.micode.notes.model.WorkingNote;
 import net.micode.notes.model.WorkingNote.NoteSettingChangedListener;
 import net.micode.notes.tool.DataUtils;
@@ -75,6 +76,7 @@ import java.util.regex.Pattern;
 
 public class NoteEditActivity extends Activity implements OnClickListener,
         NoteSettingChangedListener, OnTextViewChangeListener {
+    private AlertDialog alertDialog2;
     private class HeadViewHolder {
         public TextView tvModified;
 
@@ -162,6 +164,22 @@ public class NoteEditActivity extends Activity implements OnClickListener,
             return;
         }
         initResources();
+        Button showAlertButton = findViewById(R.id.btn_show_alert);
+        showAlertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSingleAlertDiglog();
+            }
+        });
+        Button btnChatGpt = findViewById(R.id.btn_chat_gpt);
+        btnChatGpt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 启动 ChatActivity
+                Intent intent = new Intent(NoteEditActivity.this, ChatActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -190,6 +208,7 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         // 现有的初始化逻辑
         mWorkingNote = null;
         String password = intent.getStringExtra("EXTRA_PASSWORD");
+        String name = intent.getStringExtra("EXTRA_NAME");
         if (TextUtils.equals(Intent.ACTION_VIEW, intent.getAction())) {
             long noteId = intent.getLongExtra(Intent.EXTRA_UID, 0);
             mUserQuery = "";
@@ -242,12 +261,12 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                     }
                 } else {
                     mWorkingNote = WorkingNote.createEmptyNote(this, folderId, widgetId,
-                            widgetType, bgResId, password);
+                            widgetType, bgResId, password,name);
                     mWorkingNote.convertToCallNote(phoneNumber, callDate);
                 }
             } else {
                 mWorkingNote = WorkingNote.createEmptyNote(this, folderId, widgetId, widgetType,
-                        bgResId, password);
+                        bgResId, password,name);
             }
 
             getWindow().setSoftInputMode(
@@ -689,6 +708,52 @@ public class NoteEditActivity extends Activity implements OnClickListener,
             ((NoteEditText) mEditTextList.getChildAt(i).findViewById(R.id.et_edit_text))
                     .setIndex(i);
         }
+    }
+
+    public void showSingleAlertDiglog() {
+        // 字体选项
+        final String[] items = {"方正舒体", "幼圆", "隶书", "行楷", "仿宋", "黑体"};
+
+        // 创建 AlertDialog.Builder
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setTitle("字体选择");
+
+        // 使用 setItems 方法设置点击事件
+        alertBuilder.setItems(items, (dialog, which) -> {
+            // 根据选择的字体加载对应的 Typeface
+            Typeface typeface = null;
+            switch (which) {
+                case 0:
+                    typeface = Typeface.createFromAsset(getAssets(), "font/FZSTK.TTF");
+                    break;
+                case 1:
+                    typeface = Typeface.createFromAsset(getAssets(), "font/SIMYOU.TTF");
+                    break;
+                case 2:
+                    typeface = Typeface.createFromAsset(getAssets(), "font/STLITI.TTF");
+                    break;
+                case 3:
+                    typeface = Typeface.createFromAsset(getAssets(), "font/STXINGKA.TTF");
+                    break;
+                case 4:
+                    typeface = Typeface.createFromAsset(getAssets(), "font/simfang.ttf");
+                    break;
+                case 5:
+                    typeface = Typeface.createFromAsset(getAssets(), "font/simhei.ttf");
+                    break;
+            }
+
+            // 如果 Typeface 加载成功，设置到 mNoteEditor
+            if (typeface != null) {
+                mNoteEditor.setTypeface(typeface);
+            } else {
+                Log.e(TAG, "Failed to load font for item: " + which);
+            }
+        });
+
+        // 显示对话框
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
     }
 
     private void switchToListMode(String text) {

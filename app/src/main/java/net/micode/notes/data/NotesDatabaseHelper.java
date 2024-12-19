@@ -25,6 +25,7 @@ import android.util.Log;
 import net.micode.notes.data.Notes.DataColumns;
 import net.micode.notes.data.Notes.DataConstants;
 import net.micode.notes.data.Notes.NoteColumns;
+import net.micode.notes.model.Note;
 
 
 public class NotesDatabaseHelper extends SQLiteOpenHelper {
@@ -60,7 +61,9 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
             NoteColumns.LOCAL_MODIFIED + " INTEGER NOT NULL DEFAULT 0," +
             NoteColumns.ORIGIN_PARENT_ID + " INTEGER NOT NULL DEFAULT 0," +
             NoteColumns.GTASK_ID + " TEXT NOT NULL DEFAULT ''," +
-            NoteColumns.VERSION + " INTEGER NOT NULL DEFAULT 0" +
+            NoteColumns.VERSION + " INTEGER NOT NULL DEFAULT 0," +
+                //加一个NAME列
+                NoteColumns.NAME + " TEXT NOT NULL DEFAULT '' " +
         ")";
 
     private static final String CREATE_DATA_TABLE_SQL =

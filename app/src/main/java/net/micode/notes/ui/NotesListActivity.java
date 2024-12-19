@@ -193,7 +193,7 @@ public class NotesListActivity extends Activity implements OnClickListener, OnIt
 
             WorkingNote note = WorkingNote.createEmptyNote(this, Notes.ID_ROOT_FOLDER,
                     AppWidgetManager.INVALID_APPWIDGET_ID, Notes.TYPE_WIDGET_INVALIDE,
-                    ResourceParser.RED,"");
+                    ResourceParser.RED,"","");
             note.setWorkingText(sb.toString());
             if (note.saveNote()) {
                 sp.edit().putBoolean(PREFERENCE_ADD_INTRODUCTION, true).commit();
@@ -464,13 +464,14 @@ public class NotesListActivity extends Activity implements OnClickListener, OnIt
     }
 
     private void createNewNote() {
-        PasswordDialog.show(this, new PasswordDialog.PasswordDialogListener() {
+        PasswordDialog.show(NotesListActivity.this, new PasswordDialog.PasswordDialogListener() {
             @Override
             public void onPasswordEntered(String password) {
                 Intent intent = new Intent(NotesListActivity.this, NoteEditActivity.class);
                 intent.setAction(Intent.ACTION_INSERT_OR_EDIT);
                 intent.putExtra(Notes.INTENT_EXTRA_FOLDER_ID, mCurrentFolderId);
                 intent.putExtra("EXTRA_PASSWORD", password);
+                intent.putExtra("EXTRA_TITLE", "");
                 startActivityForResult(intent, REQUEST_CODE_NEW_NODE);
             }
         });

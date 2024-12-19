@@ -1,273 +1,275 @@
 1<?xml version="1.0" encoding="utf-8"?>
-2<!--
-3 Copyright (c) 2010-2011, The MiCode Open Source Community (www.micode.net)
-4
-5     Licensed under the Apache License, Version 2.0 (the "License");
-6     you may not use this file except in compliance with the License.
-7     You may obtain a copy of the License at
-8
-9          http://www.apache.org/licenses/LICENSE-2.0
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="net.micode.notes"
+4    android:versionCode="1"
+5    android:versionName="0.1" >
+6
+7    <uses-sdk
+7-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:6:5-44
+8        android:minSdkVersion="14"
+8-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:6:15-41
+9        android:targetSdkVersion="29" />
+9-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:6:5-44
 10
-11     Unless required by applicable law or agreed to in writing, software
-12     distributed under the License is distributed on an "AS IS" BASIS,
-13     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-14     See the License for the specific language governing permissions and
-15     limitations under the License.
-16-->
-17<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-18    package="net.micode.notes"
-19    android:versionCode="1"
-20    android:versionName="0.1" >
-21
-22    <uses-sdk
-22-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:23:5-44
-23        android:minSdkVersion="14"
-23-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:23:15-41
-24        android:targetSdkVersion="29" />
-24-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:23:5-44
-25
-26    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-26-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:25:5-81
-26-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:25:22-78
-27    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-27-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:26:5-88
-27-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:26:22-85
-28    <uses-permission android:name="android.permission.INTERNET" />
-28-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:27:5-67
-28-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:27:22-64
-29    <uses-permission android:name="android.permission.READ_CONTACTS" />
-29-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:28:5-72
-29-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:28:22-69
-30    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-30-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:29:5-74
-30-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:29:22-71
-31    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-31-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:30:5-80
-31-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:30:22-77
-32    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-32-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:31:5-71
-32-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:31:22-68
-33    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-33-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:32:5-74
-33-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:32:22-71
-34    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-34-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:33:5-81
-34-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:33:22-78
-35
-36    <application
-36-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:35:5-149:19
-37        android:debuggable="true"
-38        android:icon="@drawable/icon_app"
-38-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:36:9-42
-39        android:label="@string/app_name"
-39-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:37:9-41
-40        android:testOnly="true" >
-41        <activity
-41-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:38:9-51:20
-42            android:name="net.micode.notes.ui.NotesListActivity"
-42-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:39:13-49
-43            android:configChanges="keyboardHidden|orientation|screenSize"
-43-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:40:13-74
-44            android:label="@string/app_name"
-44-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:41:13-45
-45            android:launchMode="singleTop"
-45-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:42:13-43
-46            android:theme="@style/NoteTheme"
-46-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:43:13-45
-47            android:uiOptions="splitActionBarWhenNarrow"
-47-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:44:13-57
-48            android:windowSoftInputMode="adjustPan" >
-48-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:45:13-52
-49            <intent-filter>
-49-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:47:13-50:29
-50                <action android:name="android.intent.action.MAIN" />
-50-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:48:17-69
-50-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:48:25-66
-51
-52                <category android:name="android.intent.category.LAUNCHER" />
-52-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:49:17-77
-52-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:49:27-74
-53            </intent-filter>
-54        </activity>
-55        <activity
-55-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:53:9-81:20
-56            android:name="net.micode.notes.ui.NoteEditActivity"
-56-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:54:13-48
-57            android:configChanges="keyboardHidden|orientation|screenSize"
-57-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:55:13-74
-58            android:launchMode="singleTop"
-58-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:56:13-43
-59            android:theme="@style/NoteTheme" >
-59-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:57:13-45
-60            <intent-filter>
-60-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:59:13-64:29
-61                <action android:name="android.intent.action.VIEW" />
-61-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:60:17-69
-61-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:60:25-66
-62
-63                <category android:name="android.intent.category.DEFAULT" />
-63-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:61:17-76
-63-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:61:27-73
-64
-65                <data android:mimeType="vnd.android.cursor.item/text_note" />
-65-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:62:17-78
-65-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:62:23-75
-66                <data android:mimeType="vnd.android.cursor.item/call_note" />
-66-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:62:17-78
-66-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:62:23-75
-67            </intent-filter>
-68            <intent-filter>
-68-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:66:13-71:29
-69                <action android:name="android.intent.action.INSERT_OR_EDIT" />
-69-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:67:17-79
-69-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:67:25-76
-70
-71                <category android:name="android.intent.category.DEFAULT" />
-71-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:61:17-76
-71-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:61:27-73
-72
-73                <data android:mimeType="vnd.android.cursor.item/text_note" />
-73-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:62:17-78
-73-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:62:23-75
-74                <data android:mimeType="vnd.android.cursor.item/call_note" />
-74-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:62:17-78
-74-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:62:23-75
-75            </intent-filter>
-76            <intent-filter>
-76-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:73:13-76:29
-77                <action android:name="android.intent.action.SEARCH" />
-77-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:74:17-71
-77-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:74:25-68
+11    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+11-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:8:5-81
+11-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:8:22-78
+12    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+12-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:9:5-88
+12-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:9:22-85
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:10:5-67
+13-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:10:22-64
+14    <uses-permission android:name="android.permission.READ_CONTACTS" />
+14-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:11:5-72
+14-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:11:22-69
+15    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+15-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:12:5-74
+15-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:12:22-71
+16    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+16-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:13:5-80
+16-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:13:22-77
+17    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+17-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:14:5-71
+17-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:14:22-68
+18    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+18-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:15:5-74
+18-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:15:22-71
+19    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+19-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:16:5-81
+19-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:16:22-78
+20
+21    <application
+21-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:18:5-142:19
+22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+22-->[androidx.core:core:1.6.0] C:\Users\Titania\.gradle\caches\transforms-3\479dd4bb6612b7cfbdde7fd13a3daa5e\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
+23        android:debuggable="true"
+24        android:icon="@drawable/icon_app"
+24-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:19:9-42
+25        android:label="@string/app_name" >
+25-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:20:9-41
+26
+27        <!-- 原有内容保持不变 -->
+28
+29
+30        <!-- 注册 ChatActivity -->
+31        <activity
+31-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:24:9-28:20
+32            android:name="net.micode.notes.ui.ChatActivity"
+32-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:25:13-44
+33            android:label="Chat with GPT"
+33-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:26:13-42
+34            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+34-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:27:13-69
+35        </activity>
+36
+37        <!-- 其他 Activity 和组件保持不变 -->
+38        <activity
+38-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:31:9-44:20
+39            android:name="net.micode.notes.ui.NotesListActivity"
+39-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:32:13-49
+40            android:configChanges="keyboardHidden|orientation|screenSize"
+40-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:33:13-74
+41            android:label="@string/app_name"
+41-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:34:13-45
+42            android:launchMode="singleTop"
+42-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:35:13-43
+43            android:theme="@style/NoteTheme"
+43-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:36:13-45
+44            android:uiOptions="splitActionBarWhenNarrow"
+44-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:37:13-57
+45            android:windowSoftInputMode="adjustPan" >
+45-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:38:13-52
+46            <intent-filter>
+46-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:40:13-43:29
+47                <action android:name="android.intent.action.MAIN" />
+47-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:41:17-69
+47-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:41:25-66
+48
+49                <category android:name="android.intent.category.LAUNCHER" />
+49-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:42:17-77
+49-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:42:27-74
+50            </intent-filter>
+51        </activity>
+52        <activity
+52-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:46:9-74:20
+53            android:name="net.micode.notes.ui.NoteEditActivity"
+53-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:47:13-48
+54            android:configChanges="keyboardHidden|orientation|screenSize"
+54-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:48:13-74
+55            android:launchMode="singleTop"
+55-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:49:13-43
+56            android:theme="@style/NoteTheme" >
+56-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:50:13-45
+57            <intent-filter>
+57-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:52:13-57:29
+58                <action android:name="android.intent.action.VIEW" />
+58-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:53:17-69
+58-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:53:25-66
+59
+60                <category android:name="android.intent.category.DEFAULT" />
+60-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:54:17-76
+60-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:54:27-73
+61
+62                <data android:mimeType="vnd.android.cursor.item/text_note" />
+62-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:55:17-78
+62-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:55:23-75
+63                <data android:mimeType="vnd.android.cursor.item/call_note" />
+63-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:55:17-78
+63-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:55:23-75
+64            </intent-filter>
+65            <intent-filter>
+65-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:59:13-64:29
+66                <action android:name="android.intent.action.INSERT_OR_EDIT" />
+66-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:60:17-79
+66-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:60:25-76
+67
+68                <category android:name="android.intent.category.DEFAULT" />
+68-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:54:17-76
+68-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:54:27-73
+69
+70                <data android:mimeType="vnd.android.cursor.item/text_note" />
+70-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:55:17-78
+70-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:55:23-75
+71                <data android:mimeType="vnd.android.cursor.item/call_note" />
+71-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:55:17-78
+71-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:55:23-75
+72            </intent-filter>
+73            <intent-filter>
+73-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:66:13-69:29
+74                <action android:name="android.intent.action.SEARCH" />
+74-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:67:17-71
+74-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:67:25-68
+75
+76                <category android:name="android.intent.category.DEFAULT" />
+76-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:54:17-76
+76-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:54:27-73
+77            </intent-filter>
 78
-79                <category android:name="android.intent.category.DEFAULT" />
-79-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:61:17-76
-79-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:61:27-73
-80            </intent-filter>
-81
-82            <meta-data
-82-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:78:13-80:54
-83                android:name="android.app.searchable"
-83-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:79:17-54
-84                android:resource="@xml/searchable" />
-84-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:80:17-51
-85        </activity>
-86
-87        <provider
-87-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:83:9-86:43
-88            android:name="net.micode.notes.data.NotesProvider"
-88-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:84:13-63
-89            android:authorities="micode_notes"
-89-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:85:13-47
-90            android:multiprocess="true" />
-90-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:86:13-40
-91
-92        <receiver
-92-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:88:9-100:20
-93            android:name="net.micode.notes.widget.NoteWidgetProvider_2x"
-93-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:89:13-57
-94            android:label="@string/app_widget2x2" >
-94-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:90:13-50
-95            <intent-filter>
-95-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:91:13-95:29
-96                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-96-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:92:17-84
-96-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:92:25-81
-97                <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
-97-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:93:17-85
-97-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:93:25-82
-98                <action android:name="android.intent.action.PRIVACY_MODE_CHANGED" />
-98-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:94:17-85
-98-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:94:25-82
-99            </intent-filter>
-100
-101            <meta-data
-101-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:97:13-99:58
-102                android:name="android.appwidget.provider"
-102-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:98:17-58
-103                android:resource="@xml/widget_2x_info" />
-103-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:99:17-55
-104        </receiver>
-105        <receiver
-105-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:101:9-114:20
-106            android:name="net.micode.notes.widget.NoteWidgetProvider_4x"
-106-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:102:13-57
-107            android:label="@string/app_widget4x4" >
-107-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:103:13-50
-108            <intent-filter>
-108-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:91:13-95:29
-109                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-109-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:92:17-84
-109-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:92:25-81
-110                <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
-110-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:93:17-85
-110-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:93:25-82
-111                <action android:name="android.intent.action.PRIVACY_MODE_CHANGED" />
-111-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:94:17-85
-111-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:94:25-82
-112            </intent-filter>
-113
-114            <meta-data
-114-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:97:13-99:58
-115                android:name="android.appwidget.provider"
-115-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:98:17-58
-116                android:resource="@xml/widget_4x_info" />
-116-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:99:17-55
-117        </receiver>
-118        <receiver android:name="net.micode.notes.ui.AlarmInitReceiver" >
-118-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:116:9-120:20
-118-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:116:19-55
-119            <intent-filter>
-119-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:117:13-119:29
-120                <action android:name="android.intent.action.BOOT_COMPLETED" />
-120-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:118:17-79
-120-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:118:25-76
-121            </intent-filter>
-122        </receiver>
-123        <receiver
-123-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:122:9-125:20
-124            android:name="net.micode.notes.ui.AlarmReceiver"
-124-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:123:13-61
-125            android:process=":remote" >
-125-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:124:13-38
-126        </receiver>
-127
-128        <activity
-128-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:127:9-132:20
-129            android:name="net.micode.notes.ui.AlarmAlertActivity"
-129-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:128:13-50
-130            android:label="@string/app_name"
-130-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:129:13-45
-131            android:launchMode="singleInstance"
-131-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:130:13-48
-132            android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar" >
-132-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:131:13-75
-133        </activity>
-134        <activity
-134-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:134:9-139:20
-135            android:name="net.micode.notes.ui.NotesPreferenceActivity"
-135-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:135:13-71
-136            android:label="@string/preferences_title"
-136-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:136:13-54
-137            android:launchMode="singleTop"
-137-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:137:13-43
-138            android:theme="@android:style/Theme.Holo.Light" >
-138-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:138:13-60
-139        </activity>
-140
-141        <service
-141-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:141:9-144:19
-142            android:name="net.micode.notes.gtask.remote.GTaskSyncService"
-142-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:142:13-74
-143            android:exported="false" >
-143-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:143:13-37
-144        </service>
-145
-146        <meta-data
-146-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:146:9-148:52
-147            android:name="android.app.default_searchable"
-147-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:147:13-58
-148            android:value=".ui.NoteEditActivity" />
-148-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:148:13-49
-149    </application>
-150
-151</manifest>
+79            <meta-data
+79-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:71:13-73:54
+80                android:name="android.app.searchable"
+80-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:72:17-54
+81                android:resource="@xml/searchable" />
+81-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:73:17-51
+82        </activity>
+83
+84        <provider
+84-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:76:9-79:43
+85            android:name="net.micode.notes.data.NotesProvider"
+85-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:77:13-63
+86            android:authorities="micode_notes"
+86-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:78:13-47
+87            android:multiprocess="true" />
+87-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:79:13-40
+88
+89        <receiver
+89-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:81:9-93:20
+90            android:name="net.micode.notes.widget.NoteWidgetProvider_2x"
+90-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:82:13-57
+91            android:label="@string/app_widget2x2" >
+91-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:83:13-50
+92            <intent-filter>
+92-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:84:13-88:29
+93                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+93-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:85:17-84
+93-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:85:25-81
+94                <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
+94-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:86:17-85
+94-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:86:25-82
+95                <action android:name="android.intent.action.PRIVACY_MODE_CHANGED" />
+95-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:87:17-85
+95-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:87:25-82
+96            </intent-filter>
+97
+98            <meta-data
+98-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:90:13-92:58
+99                android:name="android.appwidget.provider"
+99-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:91:17-58
+100                android:resource="@xml/widget_2x_info" />
+100-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:92:17-55
+101        </receiver>
+102        <receiver
+102-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:94:9-107:20
+103            android:name="net.micode.notes.widget.NoteWidgetProvider_4x"
+103-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:95:13-57
+104            android:label="@string/app_widget4x4" >
+104-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:96:13-50
+105            <intent-filter>
+105-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:84:13-88:29
+106                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+106-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:85:17-84
+106-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:85:25-81
+107                <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
+107-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:86:17-85
+107-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:86:25-82
+108                <action android:name="android.intent.action.PRIVACY_MODE_CHANGED" />
+108-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:87:17-85
+108-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:87:25-82
+109            </intent-filter>
+110
+111            <meta-data
+111-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:90:13-92:58
+112                android:name="android.appwidget.provider"
+112-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:91:17-58
+113                android:resource="@xml/widget_4x_info" />
+113-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:92:17-55
+114        </receiver>
+115        <receiver android:name="net.micode.notes.ui.AlarmInitReceiver" >
+115-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:109:9-113:20
+115-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:109:19-55
+116            <intent-filter>
+116-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:110:13-112:29
+117                <action android:name="android.intent.action.BOOT_COMPLETED" />
+117-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:111:17-79
+117-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:111:25-76
+118            </intent-filter>
+119        </receiver>
+120        <receiver
+120-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:115:9-118:20
+121            android:name="net.micode.notes.ui.AlarmReceiver"
+121-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:116:13-61
+122            android:process=":remote" >
+122-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:117:13-38
+123        </receiver>
+124
+125        <activity
+125-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:120:9-125:20
+126            android:name="net.micode.notes.ui.AlarmAlertActivity"
+126-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:121:13-50
+127            android:label="@string/app_name"
+127-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:122:13-45
+128            android:launchMode="singleInstance"
+128-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:123:13-48
+129            android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar" >
+129-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:124:13-75
+130        </activity>
+131        <activity
+131-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:127:9-132:20
+132            android:name="net.micode.notes.ui.NotesPreferenceActivity"
+132-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:128:13-71
+133            android:label="@string/preferences_title"
+133-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:129:13-54
+134            android:launchMode="singleTop"
+134-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:130:13-43
+135            android:theme="@android:style/Theme.Holo.Light" >
+135-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:131:13-60
+136        </activity>
+137
+138        <service
+138-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:134:9-137:19
+139            android:name="net.micode.notes.gtask.remote.GTaskSyncService"
+139-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:135:13-74
+140            android:exported="false" >
+140-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:136:13-37
+141        </service>
+142
+143        <meta-data
+143-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:139:9-141:52
+144            android:name="android.app.default_searchable"
+144-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:140:13-58
+145            android:value=".ui.NoteEditActivity" />
+145-->E:\vscode_Project\Notes-mine\app\src\main\AndroidManifest.xml:141:13-49
+146    </application>
+147
+148</manifest>

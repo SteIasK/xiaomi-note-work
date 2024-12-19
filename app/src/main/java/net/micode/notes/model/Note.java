@@ -37,6 +37,8 @@ import java.util.ArrayList;
 public class Note {
     private ContentValues mNoteDiffValues;
     private NoteData mNoteData;
+    //设置name为标题
+    private String mName;
     private static final String TAG = "Note";
     /**
      * Create a new note id for adding a new note to databases
@@ -65,7 +67,9 @@ public class Note {
         return noteId;
     }
 
-    public Note() {
+    //构造函数中加入mName赋值
+    public Note(String name) {
+        mName = name;
         mNoteDiffValues = new ContentValues();
         mNoteData = new NoteData();
     }
@@ -74,6 +78,10 @@ public class Note {
         mNoteDiffValues.put(key, value);
         mNoteDiffValues.put(NoteColumns.LOCAL_MODIFIED, 1);
         mNoteDiffValues.put(NoteColumns.MODIFIED_DATE, System.currentTimeMillis());
+    }
+
+    public String getNoteName() {
+        return mName;
     }
 
     public void setTextData(String key, String value, String password) {
@@ -100,6 +108,7 @@ public class Note {
         return mNoteDiffValues.size() > 0 || mNoteData.isLocalModified();
     }
 
+    //同步数据的方法
     public boolean syncNote(Context context, long noteId) {
         if (noteId <= 0) {
             throw new IllegalArgumentException("Wrong note id:" + noteId);
