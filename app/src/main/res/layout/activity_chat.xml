@@ -24,11 +24,18 @@
         android:layout_marginTop="8dp" />
 
     <!-- 显示 GPT 响应的 TextView -->
-    <TextView
-        android:id="@+id/chat_response"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="GPT Response:"
-        android:textSize="16sp" />
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/chat_response"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GPT Response:"
+            android:textSize="16sp"
+            android:scrollbars="vertical"
+            android:textIsSelectable="true" />
+    </ScrollView>
 </LinearLayout>

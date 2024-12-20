@@ -1,5 +1,4 @@
 package net.micode.notes.model;
-
 import android.util.Base64;
 
 import java.security.NoSuchAlgorithmException;
@@ -26,43 +25,51 @@ public class Code {
             return null;
         }
     }
-    public static String encrypt(String plainText, String password){
-        // 使用 AES 或其他加密算法对 plainText 进行加密
-        // 返回加密后的密文
+    public static String encrypt(String plainText, String password) {
         try {
+            // 去掉第一行
+            String[] lines = plainText.split("\n", 2);
+            String firstLine = lines.length > 0 ? lines[0] : ""; // 获取第一行
+            String textToEncrypt = lines.length > 1 ? lines[1] : ""; // 获取剩余部分
+
             byte[] salt = "salt".getBytes(); // 一个默认值作为盐值
-            //传入密码
             SecretKeySpec secretKey = generateAesKey(password, salt, 16); // 16 字节（128 位）
 
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 
-            byte[] encryptedBytes = cipher.doFinal(plainText.getBytes());
-            return Base64.encodeToString(encryptedBytes, Base64.NO_WRAP);
+            byte[] encryptedBytes = cipher.doFinal(textToEncrypt.getBytes());
+            String encryptedText = Base64.encodeToString(encryptedBytes, Base64.NO_WRAP);
+
+            // 将第一行与加密结果拼接
+            return firstLine + "\n" + encryptedText;
         } catch (Exception e) {
             e.printStackTrace(); // 打印异常信息
-            return plainText; //留给初始提示信息
+            return plainText; // 留给初始提示信息
         }
     }
 
-    public static String decrypt(String cipherText, String password){
-        // 使用 AES 或其他加密算法对 cipherText 进行解密
-        // 返回解密后的明文
+    public static String decrypt(String cipherText, String password) {
         try {
-            isFailed = 0;
+            // 分离第一行和加密部分
+            String[] lines = cipherText.split("\n", 2);
+            String firstLine = lines.length > 0 ? lines[0] : ""; // 获取第一行
+            String encryptedText = lines.length > 1 ? lines[1] : ""; // 获取加密部分
+
             byte[] salt = "salt".getBytes(); // 一个默认值作为盐值
-            //传入密码
             SecretKeySpec secretKey = generateAesKey(password, salt, 16); // 16 字节（128 位）
 
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
 
-            byte[] decodedBytes = Base64.decode(cipherText, Base64.NO_WRAP);
-            return new String(cipher.doFinal(decodedBytes));
+            byte[] decodedBytes = Base64.decode(encryptedText, Base64.NO_WRAP);
+            String decryptedText = new String(cipher.doFinal(decodedBytes));
+
+            // 将解密后的文本与第一行拼接
+            return firstLine + "\n" + decryptedText;
         } catch (Exception e) {
-            e.printStackTrace(); // 打印异常信息
-            //设置为密码错误状态
             isFailed = 1;
+            e.printStackTrace(); // 打印异常信息
             return cipherText + "\npassword error!\nYour changes will not be saved."; // 返回失败
         }
     }

@@ -11,11 +11,14 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
+        <!-- 标题栏 -->
         <LinearLayout
             android:id="@+id/note_title"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <!-- 左侧的日期显示 -->
             <TextView
                 android:id="@+id/tv_modified_date"
                 android:layout_width="0dip"
@@ -25,12 +28,7 @@
                 android:layout_marginRight="8dip"
                 android:textAppearance="@style/TextAppearanceSecondaryItem" />
 
-            <Button
-                android:id="@+id/btn_show_alert"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="T" />
-
+            <!-- 原有的 UI 按钮 -->
             <ImageView
                 android:id="@+id/iv_alert_icon"
                 android:layout_width="wrap_content"
@@ -38,6 +36,7 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/title_alert" />
 
+            <!-- 右侧的日期显示 -->
             <TextView
                 android:id="@+id/tv_alert_date"
                 android:layout_width="wrap_content"
@@ -47,6 +46,7 @@
                 android:layout_marginRight="8dip"
                 android:textAppearance="@style/TextAppearanceSecondaryItem" />
 
+            <!-- 右侧的设置按钮 -->
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,10 +54,12 @@
                 android:background="@drawable/bg_btn_set_color" />
         </LinearLayout>
 
+        <!-- 内容区域 -->
         <LinearLayout
             android:id="@+id/sv_note_edit"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
@@ -107,6 +109,7 @@
         </LinearLayout>
     </LinearLayout>
 
+    <!-- 背景颜色选择器 -->
     <ImageView
         android:id="@+id/btn_set_bg_color"
         android:layout_height="43dip"
@@ -228,6 +231,7 @@
         </FrameLayout>
     </LinearLayout>
 
+    <!-- 字体大小选择器 -->
     <LinearLayout
         android:id="@+id/font_size_selector"
         android:layout_width="fill_parent"
@@ -389,12 +393,66 @@
         </FrameLayout>
     </LinearLayout>
 
-    <!-- 添加按钮 -->
-    <Button
-        android:id="@+id/btn_chat_gpt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:text="AI" />
+    <!-- 新增的五个按钮 -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:weightSum="7"> <!-- 设置权重总和为 7 -->
+
+        <!-- 新增按钮 1 -->
+        <ImageButton
+            android:id="@+id/btn_funt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_font" />
+
+        <!-- 新增按钮 2 -->
+        <ImageButton
+            android:id="@+id/btn_size_plus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_size_plus" />
+
+        <ImageButton
+            android:id="@+id/btn_size_minor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_size_minor" />
+
+        <!-- 新增按钮 3 -->
+        <ImageButton
+            android:id="@+id/btn_color"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_color" />
+
+        <!-- 新增按钮 4 -->
+        <ImageButton
+            android:id="@+id/btn_bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_bold" />
+
+        <ImageButton
+            android:id="@+id/btn_italic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_italic" />
+
+        <!-- 原有的 AI 按钮 -->
+        <ImageButton
+            android:id="@+id/btn_chat_gpt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_ai" />
+    </LinearLayout>
 </FrameLayout>

@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.style.BackgroundColorSpan;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,6 +51,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -57,6 +60,7 @@ import android.widget.Toast;
 import net.micode.notes.R;
 import net.micode.notes.data.Notes;
 import net.micode.notes.data.Notes.TextNote;
+import net.micode.notes.model.Code;
 import net.micode.notes.model.WorkingNote;
 import net.micode.notes.model.WorkingNote.NoteSettingChangedListener;
 import net.micode.notes.tool.DataUtils;
@@ -70,6 +74,7 @@ import net.micode.notes.widget.NoteWidgetProvider_4x;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -164,20 +169,61 @@ public class NoteEditActivity extends Activity implements OnClickListener,
             return;
         }
         initResources();
-        Button showAlertButton = findViewById(R.id.btn_show_alert);
-        showAlertButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSingleAlertDiglog();
-            }
-        });
-        Button btnChatGpt = findViewById(R.id.btn_chat_gpt);
+        //ai功能
+        ImageButton btnChatGpt = findViewById(R.id.btn_chat_gpt);
         btnChatGpt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 启动 ChatActivity
                 Intent intent = new Intent(NoteEditActivity.this, ChatActivity.class);
                 startActivity(intent);
+            }
+        });
+        //自定义功能
+        //修改字体
+        ImageButton FuntButton = findViewById(R.id.btn_funt);
+        FuntButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSingleAlertDiglog();
+            }
+        });
+        //修改大小
+        ImageButton SizeplusButton = findViewById(R.id.btn_size_plus);
+        SizeplusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFontSizePlus();
+            }
+        });
+        ImageButton SizeminorButton = findViewById(R.id.btn_size_minor);
+        SizeminorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFontSizeMinor();
+            }
+        });
+        //修改颜色
+        ImageButton ColorButton = findViewById(R.id.btn_color);
+        ColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFontColorDialog();
+            }
+        });
+        //修改样式
+        ImageButton BoldButton = findViewById(R.id.btn_bold);
+        BoldButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFontStyleBold();
+            }
+        });
+        ImageButton ItalicButton = findViewById(R.id.btn_italic);
+        ItalicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFontStyleItalic();
             }
         });
     }
@@ -709,7 +755,8 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                     .setIndex(i);
         }
     }
-
+    //自定义功能区域
+    //字体样式
     public void showSingleAlertDiglog() {
         // 字体选项
         final String[] items = {"方正舒体", "幼圆", "隶书", "行楷", "仿宋", "黑体"};
@@ -743,9 +790,18 @@ public class NoteEditActivity extends Activity implements OnClickListener,
                     break;
             }
 
+            // 获取当前的字体
+            Typeface currentTypeface = mNoteEditor.getTypeface();
+            int currentStyle = Typeface.NORMAL; // 默认样式为正常
+
+            // 如果当前字体不为 null，获取当前的样式
+            if (currentTypeface != null) {
+                currentStyle = currentTypeface.getStyle();
+            }
+
             // 如果 Typeface 加载成功，设置到 mNoteEditor
             if (typeface != null) {
-                mNoteEditor.setTypeface(typeface);
+                mNoteEditor.setTypeface(typeface, currentStyle);
             } else {
                 Log.e(TAG, "Failed to load font for item: " + which);
             }
@@ -756,6 +812,95 @@ public class NoteEditActivity extends Activity implements OnClickListener,
         alertDialog.show();
     }
 
+    //字体大小
+    public void showFontSizePlus() {
+        // 获取当前的字体大小
+        float currentSize = mNoteEditor.getTextSize(); // 获取当前字体大小（单位：像素）
+
+        // 增加字体大小
+        float newSize = currentSize + 2; // 增加 2 个单位
+
+        // 设置新的字体大小
+        mNoteEditor.setTextSize(TypedValue.COMPLEX_UNIT_PX, newSize);
+    }
+
+    public void showFontSizeMinor() {
+        // 获取当前的字体大小
+        float currentSize = mNoteEditor.getTextSize(); // 获取当前字体大小（单位：像素）
+
+        // 减少字体大小
+        float newSize = currentSize - 2; // 减少 2 个单位
+
+        // 设置新的字体大小
+        mNoteEditor.setTextSize(TypedValue.COMPLEX_UNIT_PX, newSize);
+    }
+
+    //文字颜色
+    public void showFontColorDialog() {
+        // 颜色选项
+        final String[] colors = {"红色", "绿色", "蓝色", "黑色", "灰色"};
+        final int[] colorValues = {Color.RED, Color.GREEN, Color.BLUE, Color.BLACK, Color.GRAY};
+
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setTitle("字体颜色选择");
+
+        alertBuilder.setItems(colors, (dialog, which) -> {
+            // 获取选择的颜色
+            int selectedColor = colorValues[which];
+
+            // 设置字体颜色
+            mNoteEditor.setTextColor(selectedColor);
+        });
+
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+    }
+
+    //文字加粗/斜体
+    public void showFontStyleBold() {
+        // 获取当前的字体
+        Typeface currentTypeface = mNoteEditor.getTypeface();
+
+        // 获取当前的字体样式
+        int currentStyle = (currentTypeface != null) ? currentTypeface.getStyle() : Typeface.NORMAL;
+
+        // 判断是否已经是加粗
+        if (currentStyle == Typeface.BOLD) {
+            // 取消加粗
+            mNoteEditor.setTypeface(Typeface.create(currentTypeface, Typeface.NORMAL), Typeface.NORMAL);
+        } else if (currentStyle == Typeface.NORMAL) {
+            // 设置加粗
+            mNoteEditor.setTypeface(currentTypeface, Typeface.BOLD);
+        } else if (currentStyle == Typeface.ITALIC) {
+            // 设置加粗
+            mNoteEditor.setTypeface(currentTypeface, Typeface.BOLD_ITALIC);
+        } else if (currentStyle == Typeface.BOLD_ITALIC) {
+            // 取消加粗
+            mNoteEditor.setTypeface(currentTypeface, Typeface.ITALIC);
+        }
+    }
+    public void showFontStyleItalic() {
+        // 获取当前的字体
+        Typeface currentTypeface = mNoteEditor.getTypeface();
+
+        // 获取当前的字体样式
+        int currentStyle = (currentTypeface != null) ? currentTypeface.getStyle() : Typeface.NORMAL;
+
+        // 判断是否已经是斜体
+        if (currentStyle == Typeface.ITALIC) {
+            // 取消斜体
+            mNoteEditor.setTypeface(Typeface.create(currentTypeface, Typeface.NORMAL), Typeface.NORMAL);
+        } else if (currentStyle == Typeface.NORMAL) {
+            // 设置斜体
+            mNoteEditor.setTypeface(currentTypeface, Typeface.ITALIC);
+        } else if (currentStyle == Typeface.BOLD) {
+            // 设置斜体
+            mNoteEditor.setTypeface(currentTypeface, Typeface.BOLD_ITALIC);
+        } else if (currentStyle == Typeface.BOLD_ITALIC) {
+            // 取消斜体
+            mNoteEditor.setTypeface(currentTypeface, Typeface.BOLD);
+        }
+    }
     private void switchToListMode(String text) {
         mEditTextList.removeAllViews();
         String[] items = text.split("\n");

@@ -18,9 +18,10 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 
 public final class ChatGpt {
-    public static final String apiKey = "Lllk0jevxjvQSGRcVIErifDr";
+    //千帆平台用v1获取两个key
+    public static final String apiKey = "YOUR_APIKEY";
 
-    public static final String apiSecret = "9X9b8tSSMS5bpBni5AywhvZDlj2Kljz9";
+    public static final String apiSecret = "YOUR_SECRETKEY";
 
     private static class GptRequest {
         public static class RequestBody {
@@ -33,7 +34,7 @@ public final class ChatGpt {
             }
         }
 
-        private final String model = "ERNIE-4.0-8K";
+        private final String model = "ERNIE Speed-AppBuilder";
         private String content;
         private String prompt;
 
@@ -109,17 +110,27 @@ public final class ChatGpt {
             @Override
             public void run() {
                 try {
-                    String accessToken = getAccessToken(apiKey,apiSecret);
+                    //获取access_token
+                    //String accessToken = getAccessToken(apiKey,apiSecret);
                     GptRequest gptRequest = new GptRequest(content, prompt);
-                    URL url = new URL("https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/ai_apaas?access_token=" + accessToken);
+                    Log.d("send", String.valueOf(gptRequest));
+                    //免费api
+                    //https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/image2text/fuyu_8b
+                    //https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/yi_34b_chat
+                    //https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/ai_apaas
+                    URL url = new URL("https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/ai_apaas?access_token=24.b308228f31f03a98a7dd0fa5749a7491.2592000.1737254200.282335-116761603");
                     HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
-                    connection.setRequestProperty("Content-Type", "application/json");
+                    connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                     connection.setDoOutput(true);
 
                     // 发送请求
                     DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-                    wr.writeBytes(gptRequest.toString());
+                    /*wr.writeBytes(gptRequest.toString());
+                    Log.d("trans", gptRequest.toString());*/
+                    //这里必须强制utf-8,不然发送中文会乱码
+                    byte[] requestBodyBytes = gptRequest.toString().getBytes("UTF-8");
+                    wr.write(requestBodyBytes);
                     wr.flush();
                     wr.close();
 
@@ -138,7 +149,7 @@ public final class ChatGpt {
 
                         JSONObject jsonResponse = new JSONObject(response.toString());
                         String result = jsonResponse.getString("result");
-                        // 将完整响应内容作为返回值
+                        // 过滤内容
                         retval[0] = result;
 
                         // 打印完整响应内容
@@ -170,6 +181,6 @@ public final class ChatGpt {
      * @return 生成的文本。
      */
     public static String completion(String content) {
-        return task(content, "Continue writing without repeating existing content.");
+        return task(content, ""/*"Continue writing without repeating existing content."*/);
     }
 }
